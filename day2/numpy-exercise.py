@@ -1,6 +1,6 @@
 import numpy as np
 
-# Excercise with numpy arrays and matmul
+# Exercise with numpy arrays and matmul
 
 X = np.array([
     [1, 2, -1],
