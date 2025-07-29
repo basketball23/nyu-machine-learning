@@ -9,27 +9,27 @@ v = [6, 7, 8, 9, 10]
 x = np.array(u)
 y = np.array(v)
 
-print(x)
-print(y)
+(x)
+(y)
 
 # Numpy array operations, term by term
 
-print(x + y)
-print(x - y)
-print(x * y)
-print(x / y)
-print(x ** y)
+(x + y)
+(x - y)
+(x * y)
+(x / y)
+(x ** y)
 
 # Dot product
 
-print(np.dot(x, y))
-print(x.dot(y))
-print(x @ y)
+(np.dot(x, y))
+(x.dot(y))
+(x @ y)
 
 # Norm of a vector can be calculated by dot product of the vector with itself, then square rooting
-print(np.sqrt(x @ x))
+(np.sqrt(x @ x))
 # Or by using the norm function, under linalg
-print(np.linalg.norm(x))
+(np.linalg.norm(x))
 
 #---------------------------------------------------------#
 
@@ -41,9 +41,16 @@ M = np.array([
         [7, 8, 9]
     ])
 
-print(M.shape)
+(M.shape)
 
 # Transposition
 
-print(M.transpose())
-print(M.T)
+(M.transpose())
+(M.T)
+
+# Inverse
+
+M_inv = np.linalg.inv(M)
+
+np.matmul(M, M_inv)
+M @ M_inv
