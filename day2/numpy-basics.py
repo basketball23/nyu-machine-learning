@@ -42,3 +42,8 @@ M = np.array([
     ])
 
 print(M.shape)
+
+# Transposition
+
+print(M.transpose())
+print(M.T)
