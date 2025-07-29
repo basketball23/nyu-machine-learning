@@ -33,7 +33,7 @@ y = np.array(v)
 
 #---------------------------------------------------------#
 
-# Matrices #
+## Matrices
 
 M = np.array([
         [1, 2, 3],
@@ -52,5 +52,31 @@ M = np.array([
 
 M_inv = np.linalg.inv(M)
 
+# Matrix multiplication, should return identity matrix
 np.matmul(M, M_inv)
 M @ M_inv
+
+
+## Matrix-Vector operations
+
+A = np.array([
+    [2, 0],
+    [0, 1],
+    [1, 1]
+])
+
+# Row vector
+u = np.array([[1, 2]])
+
+# Column vector
+u = np.array([[1], [2]])
+
+# 1d array, shape will print as (2, )
+u = np.array([1, 2])
+
+print(f"A shape: {A.shape}")
+print(f"u shape: {u.shape}")
+
+result = A @ u
+print(result)
+print(f"A@u shape: {result.shape}")
