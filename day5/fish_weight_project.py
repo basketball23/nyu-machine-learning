@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import Ridge,Lasso
 from sklearn.preprocessing import PolynomialFeatures
 
-from sklearn.metrics import mean_squared_error
 
 train_feature = pd.read_csv('https://raw.githubusercontent.com/rugvedmhatre/NYU-ML-2024-Session-1/main/day5/fish_market_feature.csv')
 train_label = pd.read_csv('https://raw.githubusercontent.com/rugvedmhatre/NYU-ML-2024-Session-1/main/day5/fish_market_label.csv')
@@ -22,15 +21,19 @@ i = 3
 poly = PolynomialFeatures(degree=i, include_bias=False)
 design_matrix_train = poly.fit_transform(X_train)
 design_matrix_test = poly.transform(X_test)
-
+'''
 model = Ridge(fit_intercept=True, alpha=0.1)
 model.fit(design_matrix_train, y_train)
 
 y_hat_train = model.predict(design_matrix_train)
 y_hat_test = model.predict(design_matrix_test)
+'''
 
-print(mean_squared_error(y_train, y_hat_train))
-print(mean_squared_error(y_test, y_hat_test))
+W = np.linalg.inv(design_matrix_train.T @ design_matrix_train) @ design_matrix_train.T @ y_train
 
-#print(np.mean((y_train - y_hat_train) ** 2))
-#print(np.mean((y_test - y_hat_test) ** 2))
+y_hat_train = design_matrix_train @ W
+y_hat_test = design_matrix_test @ W
+
+
+print(np.mean((y_train - y_hat_train) ** 2))
+print(np.mean((y_test - y_hat_test) ** 2))
