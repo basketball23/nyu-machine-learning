@@ -32,6 +32,8 @@ y_hat_test = model.predict(design_matrix_test)
 print(mean_squared_error(y_train, y_hat_train))
 print(mean_squared_error(y_test, y_hat_test))
 
+labels = ["Length1", "Length2", "Length3", "Height", "Width"]
+
 for i in range(5):
     X_single = X_train[:, i].reshape(-1, 1)
 
@@ -51,9 +53,10 @@ for i in range(5):
     plt.figure()
     plt.plot(X_line1, y_line1)
     plt.scatter(X_test[:, i], y_test)
-    plt.xlabel(f'Feature {i+1}')
-    plt.ylabel('Target')
-    plt.title(f'Feature {i+1} vs Target')
+    plt.xlabel(f'{labels[i]}')
+    plt.ylabel('Weight')
+    plt.title(f'{labels[i]} vs Weight')
+    plt.ylim(-200, 1400)
     plt.show()
 
 
