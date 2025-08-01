@@ -17,7 +17,6 @@ test_label = pd.read_csv('https://raw.githubusercontent.com/rugvedmhatre/NYU-ML-
 X_test = test_feature.values
 y_test = test_label.values
 
-
 i = 2
 
 poly = PolynomialFeatures(degree=i, include_bias=False)
@@ -32,3 +31,30 @@ y_hat_test = model.predict(design_matrix_test)
 
 print(mean_squared_error(y_train, y_hat_train))
 print(mean_squared_error(y_test, y_hat_test))
+
+for i in range(5):
+    X_single = X_train[:, i].reshape(-1, 1)
+
+    # Train model on just one feature (if you haven't already)
+
+    poly = PolynomialFeatures(degree=2, include_bias=False)
+    design_matrix_train = poly.fit_transform(X_single)   
+
+    model = Ridge(fit_intercept=True, alpha=0.1)
+    model.fit(design_matrix_train, y_train)
+
+    # Create line
+    X_line1 = np.linspace(X_single.min(), X_single.max(), 100).reshape(-1, 1)
+    design_line = poly.fit_transform(X_line1)
+    y_line1 = model.predict(design_line)
+
+    plt.figure()
+    plt.plot(X_line1, y_line1)
+    plt.scatter(X_test[:, i], y_test)
+    plt.xlabel(f'Feature {i+1}')
+    plt.ylabel('Target')
+    plt.title(f'Feature {i+1} vs Target')
+    plt.show()
+
+
+
