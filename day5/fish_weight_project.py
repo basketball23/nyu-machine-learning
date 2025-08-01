@@ -6,6 +6,7 @@ from sklearn.preprocessing import PolynomialFeatures
 
 from sklearn.metrics import mean_squared_error
 
+# Inputting numpy matrices
 train_feature = pd.read_csv('https://raw.githubusercontent.com/rugvedmhatre/NYU-ML-2024-Session-1/main/day5/fish_market_feature.csv')
 train_label = pd.read_csv('https://raw.githubusercontent.com/rugvedmhatre/NYU-ML-2024-Session-1/main/day5/fish_market_label.csv')
 X_train = train_feature.values
@@ -17,21 +18,26 @@ test_label = pd.read_csv('https://raw.githubusercontent.com/rugvedmhatre/NYU-ML-
 X_test = test_feature.values
 y_test = test_label.values
 
-i = 2
+# ORDER/DEGREE
+x = 3
 
-poly = PolynomialFeatures(degree=i, include_bias=False)
+# Preprocessing with polynomials
+poly = PolynomialFeatures(degree=x, include_bias=False)
 design_matrix_train = poly.fit_transform(X_train)
 design_matrix_test = poly.transform(X_test)
 
+# Model fitting
 model = Ridge(fit_intercept=True, alpha=0.1)
 model.fit(design_matrix_train, y_train)
 
+# ŷ acheived
 y_hat_train = model.predict(design_matrix_train)
 y_hat_test = model.predict(design_matrix_test)
 
-print(mean_squared_error(y_train, y_hat_train))
-print(mean_squared_error(y_test, y_hat_test))
+print(f"Train MSE for order {x}: {mean_squared_error(y_train, y_hat_train)}")
+print(f"Test MSE for order {x}: {mean_squared_error(y_test, y_hat_test)}")
 
+# Printing graphs individually
 labels = ["Length1", "Length2", "Length3", "Height", "Width"]
 
 for i in range(5):
@@ -39,10 +45,9 @@ for i in range(5):
 
     # Train model on just one feature (if you haven't already)
 
-    poly = PolynomialFeatures(degree=2, include_bias=False)
+    poly = PolynomialFeatures(degree=x, include_bias=False)
     design_matrix_train = poly.fit_transform(X_single)   
 
-    model = Ridge(fit_intercept=True, alpha=0.1)
     model.fit(design_matrix_train, y_train)
 
     # Create line
@@ -58,6 +63,3 @@ for i in range(5):
     plt.title(f'{labels[i]} vs Weight')
     plt.ylim(-200, 1400)
     plt.show()
-
-
-
